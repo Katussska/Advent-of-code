@@ -13,25 +13,13 @@ The solutions are organized by year and day. Each day's folder contains code fil
 - **Year**
     - **Day**
         - `input`
-        - `main.cpp`
+        - `main`
         - `task.md`
 
 ## Language Used
 
-- **2023**: C++
-
-## Usage
-
-Feel free to explore these solutions for reference or learning purposes. As a beginner, these solutions might not be optimal and could be improved. Each solution includes comments explaining the approach and logic used.
+- **2024**: Typescript
 
 ## Disclaimer
 
 I'm a beginner, and these solutions might not be perfect or the most elegant. They represent my learning journey through the challenges.
-
-## Contributions
-
-I welcome contributions! If you have more efficient solutions or improvements, please submit a pull request following the guidelines in CONTRIBUTING.md.
-
-## Acknowledgments
-
-Special thanks to the creators of Advent of Code for these engaging challenges!

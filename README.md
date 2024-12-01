@@ -27,5 +27,5 @@ The solutions are organized by year and day. Each day's folder contains code fil
 
 ## Disclaimer
 
-I'm a beginner, and these solutions might not be perfect or the most elegant. They represent my learning journey through
+These solutions might not be perfect or the most elegant. They represent my learning journey through
 the challenges.

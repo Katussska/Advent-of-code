@@ -1,65 +1,48 @@
-const fs = require('fs').promises;
+import * as fs from 'fs';
+import * as readline from 'readline';
 
-async function loadCSVData(filename, leftList, rightList) {
-    try {
-        const data = await fs.readFile(filename, 'utf8');
-        const rows = data.trim().split('\n');
+async function isSafeReport(numbers: number[]): Promise<boolean> {
+    let isIncreasing = true;
+    let isDecreasing = true;
 
-        rows.forEach((row) => {
-            const [col1, col2] = row.split(',');
-            leftList.push(col1.trim());
-            rightList.push(col2.trim());
-        });
-    } catch (err) {
-        console.error('Error reading file:', err);
+    for (let i = 1; i <= numbers.length; i++) {
+        const diff = Math.abs(numbers[i] - numbers[i - 1]);
+
+        if (diff < 1 || diff > 3)
+            return false;
+
+        if (numbers[i] > numbers[i - 1])
+            isDecreasing = false;
+
+        if (numbers[i] < numbers[i - 1])
+            isIncreasing = false;
     }
+
+    return isIncreasing || isDecreasing;
 }
 
 async function partOne() {
-    const leftList = [];
-    const rightList = [];
+    const fileStream = fs.createReadStream('input.txt');
 
-    await loadCSVData('input.csv', leftList, rightList);
+    const rl = readline.createInterface({
+        input: fileStream,
+        crlfDelay: Infinity
+    });
 
-    const sortedLeft = leftList.sort((a, b) => parseInt(a) - parseInt(b));
-    const sortedRight = rightList.sort((a, b) => parseInt(a) - parseInt(b));
+    let sum = 0;
 
-    let distance = 0;
-
-    for (let i = 0; i < sortedLeft.length; i++)
-        distance += Math.abs(sortedLeft[i] - sortedRight[i]);
-
-
-    console.log("Final distance: ", distance);
-}
-
-async function partTwo() {
-    const leftList = [];
-    const rightList = [];
-
-    await loadCSVData('input.csv', leftList, rightList);
-
-    let similarity = 0;
-
-    for (let i = 0; i < leftList.length; i++) {
-        let count = 0;
-        for (let j = 0; j < rightList.length; j++) {
-            if (leftList[i] == rightList[j])
-                count++;
-
-        }
-        similarity += leftList[i] * count;
+    for await (const line of rl) {
+        const numbers = line.split(' ').map(Number);
+        if (await isSafeReport(numbers))
+            sum++;
     }
 
-    console.log("Final similarity: ", similarity);
+    console.log("Number of safe reports: ", sum);
 }
 
 async function main() {
     console.log("PART ONE");
     await partOne();
-
-    console.log("PART TWO")
-    await partTwo();
 }
 
 main();

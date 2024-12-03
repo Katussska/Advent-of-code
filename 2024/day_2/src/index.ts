@@ -72,6 +72,7 @@ async function main() {
     const unsafeReports = await partOne();
     console.log("PART TWO");
     await partTwo(unsafeReports);
+    console.log("!Final number of reports for PART TWO is sum of answers from PART ONE and PART TWO! 493");
 }
 
 main();
